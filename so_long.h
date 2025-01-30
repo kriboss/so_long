@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/01/30 01:06:34 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/01/30 13:44:44 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct s_map
 	int		collect;
 	int		exit;
 }	t_map;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*window;
+}	t_mlx;
 
 int		parsing();
 
