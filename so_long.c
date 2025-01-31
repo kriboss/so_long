@@ -6,11 +6,13 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/01/30 13:57:20 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/01/31 02:25:05 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+
 
 int on_esc(int keycode, t_mlx *mlx)
 {
@@ -26,8 +28,11 @@ int on_esc(int keycode, t_mlx *mlx)
 int main()
 {
 	t_mlx	mlx;
-	parsing();
+	t_map	map;
+	int		i;
 	
+	i = 0;
+	parsing(&map);
 	mlx.mlx = mlx_init();
 	if (mlx.mlx == NULL) {
 		printf("Failed to initialize MiniLibX\n");
@@ -38,9 +43,11 @@ int main()
 		printf("Failed to create window\n");
 		return (EXIT_FAILURE);
 	}
-	mlx_pixel_put(mlx.mlx, mlx.window, 400, 300, 0xFF0000);
+	render(&mlx, &map);
 	mlx_hook(mlx.window, 2, 1L<<0, on_esc, &mlx);
 	mlx_loop(mlx.mlx);
-
+	while (map.map[i])
+		free(map.map[i++]);
+	free(map.map);
 	return (EXIT_SUCCESS);
 }

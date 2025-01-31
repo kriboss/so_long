@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/01/30 02:16:01 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/01/31 02:21:44 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int check_walls(t_map map)
 int	flood(t_map *map, int y, int x)
 {
 	if (map->start == 1 && map->collect >= 1 && map->exit == 1)
-		return (write(1, "Success\n", 8), 1);
+		return (1);
 	if (map->start > 1 || map->exit > 10)
 	{
 		return (write(1, "Error\n", 6), -1);
@@ -63,41 +63,43 @@ int	flood(t_map *map, int y, int x)
 	return (0);
 }
 
-int parsing()
+int parsing(t_map *map)
 {
 	int 	fd;
 	int		i;
 	int		j;
-	t_map	map;
+	t_map	tmp;
 
 	i = 0;
 	j = 0;
+	tmp.start = 0;
+	tmp.collect = 0;
+	tmp.exit = 0;
 	fd = open("map.ber", O_RDONLY);
-	if (fd == -1)
+	map->map = malloc(sizeof(char *) * 100);
+	if (fd == -1 || !map->map)
+		return (write(1, "Error\n", 6), 1);
+	map->start = 0;
+	map->collect = 0;
+	map->exit = 0;
+	map->map[i] = get_next_line(fd);
+	while (map->map[i])
 	{
-		printf("Failed to open file\n");
-		return (1);
+		printf("%s\n", map->map[i]);
+		map->map[++i] = get_next_line(fd);
 	}
-	map.map = malloc(sizeof(char *) * 100);
-	map.start = 0;
-	map.collect = 0;
-	map.exit = 0;
-	map.map[i] = get_next_line(fd);
-	while (map.map[i])
-	{
-		printf("%s\n", map.map[i]);
-		map.map[++i] = get_next_line(fd);
-	}
+	tmp.map = mapdup(map->map);
+	if (check_walls(*map) == 1)
+		return (write(1, "Error\n", 6), 1);
 	i = 0;
-	check_walls(map);
-	while (map.map[i])
+	while (map->map[i])
 	{
 		j = 0;
-		while (map.map[i][j])
+		while (map->map[i][j])
 		{
-			if (map.map[i][j] == '0')
+			if (map->map[i][j] == '0')
 			{
-				if (flood(&map, i, j) != 1)
+				if (flood(&tmp, i, j) != 1)
 					return (write(1, "Error\n", 6), 1);
 				break ;
 			}
@@ -105,9 +107,10 @@ int parsing()
 		}
 		i++;
 	}
-	while (i >= 0)
-		free(map.map[i--]);
-	free(map.map);
+	i = 0;
+	while (tmp.map[i])
+		free(tmp.map[i++]);
+	free(tmp.map);
 	close(fd);
 	return (0);
 }

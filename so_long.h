@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/01/30 13:44:44 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/01/31 02:24:33 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,22 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
+	int		width;
+	int		height;
 }	t_mlx;
 
-int		parsing();
+typedef struct s_img
+{
+	void	*img;
+	void	*subimg;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
+int		parsing(t_map *map);
+char	**mapdup(char **s);
+void	render(t_mlx *mlx, t_map *map);
 
 #endif
