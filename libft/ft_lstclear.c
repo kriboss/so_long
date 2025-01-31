@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbossio <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:56:15 by kbossio           #+#    #+#             */
-/*   Updated: 2024/11/25 12:56:16 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/01/31 23:41:20 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstclear(t_li **lst, void (*del)(void *))
 {
-	t_list	*temp;
+	t_li	*temp;
 
 	if (!lst || !del)
 		return ;

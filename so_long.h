@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/01/31 02:24:33 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/01 00:46:34 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,39 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-typedef struct s_map
-{
-	char	**map;
-	int		start;
-	int		collect;
-	int		exit;
-}	t_map;
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*window;
-	int		width;
-	int		height;
-}	t_mlx;
-
 typedef struct s_img
 {
 	void	*img;
-	void	*subimg;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void	*ply[4];
+	void	*tile;
+	void	*exit;
+	void	*obj;
+	void	*bg;
 }	t_img;
 
-int		parsing(t_map *map);
+typedef struct s_list
+{
+	void	*mlx;
+	void	*wnd;
+	char	**map;
+	t_img	*img;
+	int		p;
+	int		c;
+	int		e;
+	int		x;
+	int		y;
+	int		px;
+	int		py;
+	int		moves;
+}	t_list;
+
+void	ft_free(t_list *list);
+
+int		parsing(t_list *list);
 char	**mapdup(char **s);
-void	render(t_mlx *mlx, t_map *map);
+int		render_all(t_list *list, t_img *img, void *mlx, void *wnd);
+void	render(t_list *list);
+
+int	move(char c, t_list *list, t_img *img);
 
 #endif

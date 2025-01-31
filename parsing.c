@@ -6,100 +6,99 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/01/31 02:21:44 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/01 00:35:41 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int check_walls(t_map map)
+int check_walls(t_list *list)
 {
 	size_t i;
 	size_t j;
 
 	i = 0;
-	while (map.map[i])
+	while (list->map[i])
 	{
 		j = 0;
-		while (map.map[i][j + 1])
+		while (list->map[i][j + 1])
 		{
-			if (i == 0 || map.map[i + 1] == NULL)
-			{
-				if (map.map[i][j] != '1')
-					return (write(1, "Error\n", 6), 1);
-			}
-			else if (j == 0 || j == ft_strlen(map.map[i]) - 1)
-			{
-				if (map.map[i][j] != '1')
-					return (write(1, "Error\n", 6), 1);
-			}
+			if ((i == 0 || list->map[i + 1] == NULL) && list->map[i][j] != '1')
+				return (write(1, "Error\n", 6), 1);
+			else if ((j == 0 || j == ft_strlen(list->map[i]) - 1)
+				&& list->map[i][j] != '1')
+				return (write(1, "Error\n", 6), 1);
 			j++;
 		}
 		i++;
 	}
+	list->x = j + 1;
+	list->y = i;
 	return (0);
 }
 
-int	flood(t_map *map, int y, int x)
+int	flood(t_list *list, int y, int x, t_list *tmp)
 {
-	if (map->start == 1 && map->collect >= 1 && map->exit == 1)
+	if (list->p == 1 && list->c >= 1 && list->e == 1)
 		return (1);
-	if (map->start > 1 || map->exit > 10)
-	{
+	if (list->p > 1 || list->e > 1)
 		return (write(1, "Error\n", 6), -1);
-	}
-	if (map->map[y][x] == '1')
+	if (tmp->map[y][x] == '1')
 		return (0);
-	else if (map->map[y][x] == 'C')
-		map->collect++;
-	else if (map->map[y][x] == 'E')
-		map->exit++;
-	else if (map->map[y][x] == 'P')
-		map->start++;
-	map->map[y][x] = '1';
-	if (flood(map, y + 1, x) || flood(map, y - 1, x)
-		|| flood(map, y, x + 1) || flood(map, y, x - 1) == 1)
+	else if (tmp->map[y][x] == 'C')
+		list->c++;
+	else if (tmp->map[y][x] == 'E')
+		list->e++;
+	else if (tmp->map[y][x] == 'P')
+	{
+		list->p++;
+		list->px = x;
+		list->py = y;
+	}
+	tmp->map[y][x] = '1';
+	if (flood(list, y + 1, x, tmp) || flood(list, y - 1, x, tmp)
+		|| flood(list, y, x + 1, tmp) || flood(list, y, x - 1, tmp))
 		return (1);
 	return (0);
 }
 
-int parsing(t_map *map)
+int parsing(t_list *list)
 {
 	int 	fd;
 	int		i;
 	int		j;
-	t_map	tmp;
+	t_list	tmp;
 
 	i = 0;
 	j = 0;
-	tmp.start = 0;
-	tmp.collect = 0;
-	tmp.exit = 0;
+	tmp.p = 0;
+	tmp.c = 0;
+	tmp.e = 0;
 	fd = open("map.ber", O_RDONLY);
-	map->map = malloc(sizeof(char *) * 100);
-	if (fd == -1 || !map->map)
+	list->map = malloc(sizeof(char *) * 100);
+	if (fd == -1 || !list->map)
 		return (write(1, "Error\n", 6), 1);
-	map->start = 0;
-	map->collect = 0;
-	map->exit = 0;
-	map->map[i] = get_next_line(fd);
-	while (map->map[i])
+	list->map[i] = get_next_line(fd);
+	while (list->map[i])
 	{
-		printf("%s\n", map->map[i]);
-		map->map[++i] = get_next_line(fd);
+		printf("%s\n", list->map[i]);
+		list->map[++i] = get_next_line(fd);
 	}
-	tmp.map = mapdup(map->map);
-	if (check_walls(*map) == 1)
+	list->p = 0;
+	list->c = 0;
+	list->e = 0;
+	tmp.map = mapdup(list->map);
+	if (check_walls(list) == 1)
 		return (write(1, "Error\n", 6), 1);
 	i = 0;
-	while (map->map[i])
+	while (list->map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (list->map[i][j])
 		{
-			if (map->map[i][j] == '0')
+			if (list->map[i][j] == '0')
 			{
-				if (flood(&tmp, i, j) != 1)
+				if (flood(list, i, j, &tmp) != 1)
 					return (write(1, "Error\n", 6), 1);
 				break ;
 			}

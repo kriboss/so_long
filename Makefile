@@ -6,7 +6,7 @@
 #    By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 18:49:17 by kbossio           #+#    #+#              #
-#    Updated: 2025/01/31 01:40:50 by kbossio          ###   ########.fr        #
+#    Updated: 2025/01/31 19:26:37 by kbossio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 CC = gcc -Wall -Wextra -Werror
 INCLUDES = -Ilibft -I.
 MLX_FLAGS = -lmlx -lX11 -lXext -lbsd
-SRC = so_long.c so_long_utils.c parsing.c render.c
+SRC = so_long.c so_long_utils.c parsing.c render.c movement.c
 OBJS = $(SRC:.c=.o)
 
 LIB = libft.a
