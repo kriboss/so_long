@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 01:02:50 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/01 00:18:18 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/17 22:20:11 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,14 @@ char	**mapdup(char **s)
 	}
 	ptr[i] = NULL;
 	return (ptr);
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
 }

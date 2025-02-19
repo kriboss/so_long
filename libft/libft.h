@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:13:11 by kbossio           #+#    #+#             */
-/*   Updated: 2025/01/31 23:42:31 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/02 19:31:22 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_li
 {
-	void			*content;
+	void		*content;
 	struct s_li	*next;
 }	t_li;
 
