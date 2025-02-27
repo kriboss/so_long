@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/19 13:31:33 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/26 23:20:29 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@ int	en_cord(t_list *list)
 {
 	int	i;
 	int	j;
-	int	n;
 
 	i = 0;
-	n = list->en->n;
-	list->en->x = malloc(sizeof(int) * (n + 1));
+	list->en->x = malloc(sizeof(int) * (list->en->n + 1));
 	if (!list->en->x)
 		return (1);
-	list->en->y = malloc(sizeof(int) * (n + 1));
+	list->en->y = malloc(sizeof(int) * (list->en->n + 1));
 	if (!list->en->y)
-		return (free(list->en->x),1);
+		return (free(list->en->x), 1);
 	while (list->map[i])
 	{
 		j = 0;
@@ -33,9 +31,8 @@ int	en_cord(t_list *list)
 		{
 			if (list->map[i][j] == 'X')
 			{
-				list->en->x[n] = j;
-				list->en->y[n] = i;
-				n++;
+				list->en->x[list->en->n] = j;
+				list->en->y[list->en->n++] = i;
 			}
 			j++;
 		}
@@ -64,10 +61,9 @@ int	check_walls(t_list *list)
 				return (1);
 			j++;
 		}
-		if (size != j && i != 0)
+		if (size != j && i++ != 0)
 			return (1);
 		size = j;
-		i++;
 	}
 	list->x = j + 1;
 	list->y = i;
@@ -129,7 +125,7 @@ int	parsing(t_list *list)
 	list->c = 0;
 	list->e = 0;
 	if (check_walls(list) == 1)
-		return (free_map(list->map),1);
+		return (free_map(list->map), 1);
 	tmp.map = mapdup(list->map);
 	i = 0;
 	while (list->map[i])

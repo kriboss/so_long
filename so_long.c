@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/19 13:29:08 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/26 22:47:17 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,22 @@ int	on_esc(int keycode, t_list *list)
 	}
 	if (keycode == 119)
 	{
-		move('w', list, list->img);
+		game('w', list, list->img);
 		printf("up\n");
 	}
 	else if (keycode == 115)
 	{
-		move('s', list, list->img);
+		game('s', list, list->img);
 		printf("down\n");
 	}
 	else if (keycode == 97)
 	{
-		move('a', list, list->img);
+		game('a', list, list->img);
 		printf("left\n");
 	}
 	else if (keycode == 100)
 	{
-		move('d', list, list->img);
+		game('d', list, list->img);
 		printf("right\n");
 	}
 	return (0);

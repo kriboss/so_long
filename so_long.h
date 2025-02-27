@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/17 22:20:21 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/26 23:03:46 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	free_map(char **map);
 int		render_all(t_list *list, t_img *img, void *mlx, void *wnd);
 void	render(t_list *list);
 
-int		move(char c, t_list *list, t_img *img);
+int		game(char c, t_list *list, t_img *img);
 
 #endif

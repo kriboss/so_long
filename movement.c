@@ -6,47 +6,50 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:09:03 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/19 13:25:16 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/02/26 23:06:50 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	move(char c, t_list *list, t_img *img)
+void	put_str(t_list *list, t_img *img)
 {
-	void	*pl;
 	char	*str;
-	int		i;
 
-	pl = img->ply[0];
-	i = ++list->moves;
-	str = ft_itoa(i);
+	str = ft_itoa(list->moves);
 	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, 0, 0);
 	mlx_string_put(list->mlx, list->wnd, 10, 10, 0x00FFFFFF, "Moves: ");
 	mlx_string_put(list->mlx, list->wnd, 60, 10, 0x00FFFFFF, str);
 	free(str);
-	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, list->px * 100, list->py * 100);
-	mlx_put_image_to_window(list->mlx, list->wnd, img->tile, list->px * 100, list->py * 100);
-	if (c == 'w')
+}
+
+void	*move(char c, t_list *list, t_img *img, void *pl)
+{
+	if (c == 'w' && list->map[list->py - 1][list->px] != '1')
 	{
 		list->py -= 1;
-		pl = img->ply[1];
-	}
-	else if (c == 'a')
-	{
-		list->px -= 1;
-		pl = img->ply[2];
-	}
-	else if (c == 's')
-	{
-		list->py += 1;
 		pl = img->ply[0];
 	}
-	else if (c == 'd')
+	else if (c == 'a' && list->map[list->py][list->px - 1] != '1')
+	{
+		list->px -= 1;
+		pl = img->ply[1];
+	}
+	else if (c == 's' && list->map[list->py + 1][list->px] != '1')
+	{
+		list->py += 1;
+		pl = img->ply[2];
+	}
+	else if (c == 'd' && list->map[list->py][list->px + 1] != '1')
 	{
 		list->px += 1;
 		pl = img->ply[3];
 	}
+	return (pl);
+}
+
+void	check(t_list *list, t_img *img)
+{
 	if (list->map[list->py][list->px] == 'X')
 	{
 		ft_free(list);
@@ -70,17 +73,19 @@ int	move(char c, t_list *list, t_img *img)
 			exit(EXIT_SUCCESS);
 		}
 	}
-	else if (list->map[list->py][list->px] == '1')
-	{
-		if (c == 'w')
-			list->py += 1;
-		else if (c == 'a')
-			list->px += 1;
-		else if (c == 's')
-			list->py -= 1;
-		else if (c == 'd')
-			list->px -= 1;
-	}
+}
+
+int	game(char c, t_list *list, t_img *img)
+{
+	void	*pl;
+
+	pl = img->ply[0];
+	list->moves++;
+	put_str(list, img);
+	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, list->px * 100, list->py * 100);
+	mlx_put_image_to_window(list->mlx, list->wnd, img->tile, list->px * 100, list->py * 100);
+	pl = move(c, list, img, pl);
+	check(list, img);
 	mlx_put_image_to_window(list->mlx, list->wnd, pl, list->px * 100, list->py * 100);
 	return (0);
 }
