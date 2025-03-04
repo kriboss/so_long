@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:18:29 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/26 23:24:06 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/04 12:59:02 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,28 @@ int	get_img(void *mlx, t_img *img)
 	return (0);
 }
 
-int	render_all(t_list *list, t_img *img, void *mlx, void *wnd)
+void	put_img(t_list *list, t_img *img, int j, int i)
+{
+	mlx_put_image_to_window(list->mlx, list->wnd,
+		img->bg, j * 100, i * 100);
+	if (list->map[i][j] == '0')
+		mlx_put_image_to_window(list->mlx, list->wnd,
+			img->tile, j * 100, i * 100);
+	if (list->map[i][j] == 'C')
+		mlx_put_image_to_window(list->mlx, list->wnd,
+			img->obj, j * 100, i * 100);
+	else if (list->map[i][j] == 'E')
+		mlx_put_image_to_window(list->mlx, list->wnd,
+			img->exit, j * 100, i * 100);
+	else if (list->map[i][j] == 'P')
+		mlx_put_image_to_window(list->mlx, list->wnd,
+			img->ply[0], j * 100, i * 100);
+	else if (list->map[i][j] == 'X')
+		mlx_put_image_to_window(list->mlx, list->wnd,
+			img->en[0], j * 100, i * 100);
+}
+
+int	render_all(t_list *list)
 {
 	int	i;
 	int	j;
@@ -50,17 +71,7 @@ int	render_all(t_list *list, t_img *img, void *mlx, void *wnd)
 		j = 0;
 		while (j < list->x)
 		{
-			mlx_put_image_to_window(mlx, wnd, img->bg, j * 100, i * 100);
-			if (list->map[i][j] == '0')
-				mlx_put_image_to_window(mlx, wnd, img->tile, j * 100, i * 100);
-			if (list->map[i][j] == 'C')
-				mlx_put_image_to_window(mlx, wnd, img->obj, j * 100, i * 100);
-			else if (list->map[i][j] == 'E')
-				mlx_put_image_to_window(mlx, wnd, img->exit, j * 100, i * 100);
-			else if (list->map[i][j] == 'P')
-				mlx_put_image_to_window(mlx, wnd, img->ply[0], j * 100, i * 100);
-			else if (list->map[i][j] == 'X')
-				mlx_put_image_to_window(mlx, wnd, img->en[0], j * 100, i * 100);
+			put_img(list, list->img, j, i);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/03 14:10:17 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/04 13:17:32 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	en_cord(t_list *list)
 			if (list->map[i][j] == 'X')
 			{
 				list->en->x[list->en->n] = j;
-				list->en->y[list->en->n] = i;
-				list->en->n++;
+				list->en->y[list->en->n++] = i;
 			}
 			j++;
 		}
@@ -57,7 +56,8 @@ int	check_walls(t_list *list)
 		{
 			if ((i == 0 || list->map[i + 1] == NULL) && list->map[i][j] != '1')
 				return (1);
-			if ((j == 0 || j == ft_strlen(list->map[i]) - 1) && list->map[i][j] != '1')
+			if ((j == 0 || j == ft_strlen(list->map[i]) - 1)
+				&& list->map[i][j] != '1')
 				return (1);
 			j++;
 		}
@@ -122,9 +122,6 @@ int	parsing(t_list *list)
 		printf("%s\n", list->map[i]);
 		list->map[++i] = get_next_line(fd);
 	}
-	list->p = 0;
-	list->c = 0;
-	list->e = 0;
 	if (check_walls(list) == 1)
 		return (free_map(list->map), 1);
 	tmp.map = mapdup(list->map);
