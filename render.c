@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:18:29 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/04 12:59:02 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:12:08 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	put_img(t_list *list, t_img *img, int j, int i)
 
 int	render_all(t_list *list)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	get_img(list->mlx, list->img);

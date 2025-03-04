@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/04 13:30:04 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:30:45 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	main(void)
 		return (free(list->en), free(list->img), free(list), EXIT_FAILURE);
 	}
 	printf("x: %d\ny: %d\n", list->px, list->py);
-	printf("x: %d\ny: %d\n", list->x, list->y);
+	printf("x: %ld\ny: %ld\n", list->x, list->y);
 	list->mlx = mlx_init();
 	if (list->mlx == NULL)
 		return (write(1, "Failed to initialize MiniLibX\n", 30), EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/04 13:31:10 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:10:24 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_list
 	int		p;
 	int		c;
 	int		e;
-	int		x;
-	int		y;
+	size_t	x;
+	size_t	y;
 	int		px;
 	int		py;
 	int		moves;
