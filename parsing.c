@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/26 23:20:29 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:10:17 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	en_cord(t_list *list)
 			if (list->map[i][j] == 'X')
 			{
 				list->en->x[list->en->n] = j;
-				list->en->y[list->en->n++] = i;
+				list->en->y[list->en->n] = i;
+				list->en->n++;
 			}
 			j++;
 		}
@@ -56,13 +57,13 @@ int	check_walls(t_list *list)
 		{
 			if ((i == 0 || list->map[i + 1] == NULL) && list->map[i][j] != '1')
 				return (1);
-			else if ((j == 0 || j == ft_strlen(list->map[i]) - 1)
-				&& list->map[i][j] != '1')
+			if ((j == 0 || j == ft_strlen(list->map[i]) - 1) && list->map[i][j] != '1')
 				return (1);
 			j++;
 		}
-		if (size != j && i++ != 0)
+		if (size != j && i != 0)
 			return (1);
+		i++;
 		size = j;
 	}
 	list->x = j + 1;

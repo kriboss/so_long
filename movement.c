@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:09:03 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/26 23:06:50 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/03 13:41:34 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ void	*move(char c, t_list *list, t_img *img, void *pl)
 	if (c == 'w' && list->map[list->py - 1][list->px] != '1')
 	{
 		list->py -= 1;
-		pl = img->ply[0];
+		pl = img->ply[1];
 	}
 	else if (c == 'a' && list->map[list->py][list->px - 1] != '1')
 	{
 		list->px -= 1;
-		pl = img->ply[1];
+		pl = img->ply[2];
 	}
 	else if (c == 's' && list->map[list->py + 1][list->px] != '1')
 	{
 		list->py += 1;
-		pl = img->ply[2];
+		pl = img->ply[0];
 	}
 	else if (c == 'd' && list->map[list->py][list->px + 1] != '1')
 	{

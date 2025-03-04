@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/26 22:47:17 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:13:19 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_free(t_list *list)
 	if (list->img->bg)
 		mlx_destroy_image(list->mlx, list->img->bg);
 	mlx_destroy_window(list->mlx, list->wnd);
+	mlx_destroy_display(list->mlx);
 	while (list->map[i])
 		free(list->map[i++]);
 	free(list->map);
@@ -56,7 +57,8 @@ int	render_en(t_list *list)
 	int	j;
 
 	i = ++list->img->frame;
-	j = list->en->n;
+	j = list->en->n - 1;
+	printf("j: %d\n", j);
 	if (j > 0 && (i == 200000 || i == 400000))
 	{
 		x = list->en->x[j];
