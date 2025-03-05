@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:09:03 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/04 13:20:23 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/05 13:02:27 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,17 @@
 void	put_str(t_list *list, t_img *img)
 {
 	char	*str;
+	int		i;
 
+	i = 0;
 	str = ft_itoa(list->moves);
-	printf("Moves: %s\n", str);
+	while (str[i])
+	{
+		write(1, "Moves: ", 7);
+		write(1, &str[i], 1);
+		write(1, "\n", 1);
+		i++;
+	}	
 	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, 0, 0);
 	mlx_string_put(list->mlx, list->wnd, 10, 10, 0x00FFFFFF, "Moves: ");
 	mlx_string_put(list->mlx, list->wnd, 60, 10, 0x00FFFFFF, str);
@@ -26,22 +34,26 @@ void	put_str(t_list *list, t_img *img)
 
 void	*move(char c, t_list *list, t_img *img, void *pl)
 {
-	if (c == 'w' && list->map[list->py - 1][list->px] != '1')
+	if (c == 'w' && list->map[list->py - 1][list->px] != '1'
+		&& (list->map[list->py - 1][list->px] != 'E' || list->c == 0))
 	{
 		list->py -= 1;
 		pl = img->ply[1];
 	}
-	else if (c == 'a' && list->map[list->py][list->px - 1] != '1')
+	else if (c == 'a' && (list->map[list->py][list->px - 1] != '1'
+		&& (list->map[list->py][list->px - 1] != 'E' || list->c == 0)))
 	{
 		list->px -= 1;
 		pl = img->ply[2];
 	}
-	else if (c == 's' && list->map[list->py + 1][list->px] != '1')
+	else if (c == 's' && (list->map[list->py + 1][list->px] != '1'
+		&& (list->map[list->py + 1][list->px] != 'E' || list->c == 0)))
 	{
 		list->py += 1;
 		pl = img->ply[0];
 	}
-	else if (c == 'd' && list->map[list->py][list->px + 1] != '1')
+	else if (c == 'd' && (list->map[list->py][list->px + 1] != '1'
+		&& (list->map[list->py][list->px + 1] != 'E' || list->c == 0)))
 	{
 		list->px += 1;
 		pl = img->ply[3];

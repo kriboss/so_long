@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/04 23:10:24 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/05 12:58:55 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_list
 
 void	ft_free(t_list *list);
 
+t_list	*init(void);
 int		parsing(t_list *list);
 char	**mapdup(char **s);
 void	free_map(char **map);

@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/04 23:30:45 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/05 12:59:24 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,22 @@ void	ft_free(t_list *list)
 int	render_en(t_list *list)
 {
 	int	i;
-	int	x;
-	int	y;
 	int	j;
 
 	i = ++list->img->frame;
 	j = list->en->n - 1;
-	if (j > 0 && (i == 100000 || i == 200000))
+	if (i == 100000 || i == 200000)
 	{
-		x = list->en->x[j];
-		y = list->en->y[j];
-		mlx_put_image_to_window(list->mlx, list->wnd,
-			list->img->bg, x * 100, y * 100);
-		mlx_put_image_to_window(list->mlx, list->wnd,
-			list->img->tile, x * 100, y * 100);
-		mlx_put_image_to_window(list->mlx, list->wnd,
-			list->img->en[i / 200000], x * 100, y * 100);
-		j--;
+		while (j >= 0)
+		{
+			mlx_put_image_to_window(list->mlx, list->wnd,
+				list->img->bg, list->en->x[j] * 100, list->en->y[j] * 100);
+			mlx_put_image_to_window(list->mlx, list->wnd,
+				list->img->tile, list->en->x[j] * 100, list->en->y[j] * 100);
+			mlx_put_image_to_window(list->mlx, list->wnd,
+				list->img->en[i / 200000], list->en->x[j] * 100, list->en->y[j] * 100);
+			j--;
+		}
 	}
 	if (list->img->frame == 200000)
 		list->img->frame = 0;
@@ -85,29 +84,11 @@ int	key_hook(int keycode, t_list *list)
 	return (0);
 }
 
-t_list	*init(void)
+int	close_window(t_list *list)
 {
-	t_list	*list;
-
-	list = malloc(sizeof(t_list));
-	if (!list)
-		return (NULL);
-	list->en = malloc(sizeof(t_en));
-	if (!list->en)
-		return (free(list), NULL);
-	list->img = malloc(sizeof(t_img));
-	if (!list->img)
-		return (free(list->en), free(list), NULL);
-	list->img->frame = 0;
-	list->en->n = 0;
-	list->map = NULL;
-	list->px = 0;
-	list->py = 0;
-	list->moves = 0;
-	list->p = 0;
-	list->c = 0;
-	list->e = 0;
-	return (list);
+	ft_free(list);
+	printf("Window closed\n");
+	exit(EXIT_SUCCESS);
 }
 
 int	main(void)
@@ -122,8 +103,6 @@ int	main(void)
 		write(1, "Error\n", 6);
 		return (free(list->en), free(list->img), free(list), EXIT_FAILURE);
 	}
-	printf("x: %d\ny: %d\n", list->px, list->py);
-	printf("x: %ld\ny: %ld\n", list->x, list->y);
 	list->mlx = mlx_init();
 	if (list->mlx == NULL)
 		return (write(1, "Failed to initialize MiniLibX\n", 30), EXIT_FAILURE);
@@ -133,6 +112,7 @@ int	main(void)
 		return (write(1, "Failed to create wnd\n", 22), EXIT_FAILURE);
 	render_all(list);
 	mlx_loop_hook(list->mlx, render_en, list);
+	mlx_hook(list->wnd, 17, 0, close_window, list);
 	mlx_hook(list->wnd, 2, 1L << 0, key_hook, list);
 	mlx_loop(list->mlx);
 	return (EXIT_SUCCESS);

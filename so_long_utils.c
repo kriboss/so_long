@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 01:02:50 by kbossio           #+#    #+#             */
-/*   Updated: 2025/02/17 22:20:11 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/05 12:58:43 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,29 @@ void	free_map(char **map)
 	while (map[i])
 		free(map[i++]);
 	free(map);
+}
+
+t_list	*init(void)
+{
+	t_list	*list;
+
+	list = malloc(sizeof(t_list));
+	if (!list)
+		return (NULL);
+	list->en = malloc(sizeof(t_en));
+	if (!list->en)
+		return (free(list), NULL);
+	list->img = malloc(sizeof(t_img));
+	if (!list->img)
+		return (free(list->en), free(list), NULL);
+	list->img->frame = 0;
+	list->en->n = 0;
+	list->map = NULL;
+	list->px = 0;
+	list->py = 0;
+	list->moves = 0;
+	list->p = 0;
+	list->c = 0;
+	list->e = 0;
+	return (list);
 }
