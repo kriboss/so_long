@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:09:03 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/05 13:02:27 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/07 12:58:09 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ void	put_str(t_list *list, t_img *img)
 
 	i = 0;
 	str = ft_itoa(list->moves);
+	write(1, "Moves: ", 7);
 	while (str[i])
-	{
-		write(1, "Moves: ", 7);
-		write(1, &str[i], 1);
-		write(1, "\n", 1);
-		i++;
-	}	
+		write(1, &str[i++], 1);
+	write(1, "\n", 1);
 	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, 0, 0);
 	mlx_string_put(list->mlx, list->wnd, 10, 10, 0x00FFFFFF, "Moves: ");
 	mlx_string_put(list->mlx, list->wnd, 60, 10, 0x00FFFFFF, str);
@@ -72,6 +69,7 @@ void	check(t_list *list, t_img *img)
 	if (list->map[list->py][list->px] == 'C')
 	{
 		list->c--;
+		printf("c: %d\n", list->c);
 		list->map[list->py][list->px] = '0';
 		mlx_put_image_to_window(list->mlx, list->wnd, img->bg,
 			list->px * 100, list->py * 100);

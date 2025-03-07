@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:18:29 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/04 23:12:08 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/07 12:54:45 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int	get_img(void *mlx, t_img *img)
 		|| img->ply[3] == NULL || img->en[0] == NULL || img->en[1] == NULL
 		|| img->tile == NULL || img->exit == NULL
 		|| img->obj == NULL || img->bg == NULL)
-	{
-		printf("Failed to load image\n");
-		return (-1);
-	}
+		return (write(2, "Error\nFailed to load images", 28), -1);
 	return (0);
 }
 
@@ -65,7 +62,8 @@ int	render_all(t_list *list)
 	size_t	j;
 
 	i = 0;
-	get_img(list->mlx, list->img);
+	if (get_img(list->mlx, list->img) == -1)
+		return (ft_free(list), exit(EXIT_FAILURE), 1);
 	while (i < list->y)
 	{
 		j = 0;
