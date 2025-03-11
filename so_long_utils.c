@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 01:02:50 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/07 12:41:30 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/11 14:58:37 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_list	*init(void)
 
 int	check_map(t_list *list, t_list *tmp, int i, int j)
 {
-	if ((list->map[i][j] == 'P' && flood(list, i, j, tmp) != 1)
+	if ((list->map[i][j] == 'P' && flood(list, i, j, tmp) == -1)
 		|| (list->map[i][j] != '1' && list->map[i][j] != '0'
 		&& list->map[i][j] != 'C' && list->map[i][j] != 'E'
 		&& list->map[i][j] != 'P' && list->map[i][j] != 'X'))

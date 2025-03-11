@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/07 13:01:08 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/11 14:57:49 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,18 @@ int	flood(t_list *list, int y, int x, t_list *tmp)
 	if (tmp->map[y][x] == 'X')
 		return (list->en->n++, 0);
 	else if (tmp->map[y][x] == 'C')
+	{
 		list->c++;
+		printf("c: %d\n", list->c);
+	}
 	else if (tmp->map[y][x] == 'E')
-		return (list->e++, 0);
+		return (tmp->map[y][x] = '1', list->e++, 0);
 	else if (tmp->map[y][x] == 'P')
 	{
 		list->p++;
 		list->px = x;
 		list->py = y;
 	}
-	if (list->p == 1 && list->c >= 1 && list->e == 1)
-		return (1);
 	if (tmp->map[y][x] == '1')
 		return (0);
 	tmp->map[y][x] = '1';

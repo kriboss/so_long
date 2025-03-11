@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:18:29 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/07 12:54:45 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/11 15:27:32 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,22 @@ int	get_img(void *mlx, t_img *img)
 void	put_img(t_list *list, t_img *img, int j, int i)
 {
 	mlx_put_image_to_window(list->mlx, list->wnd,
-		img->bg, j * 100, i * 100);
+		img->bg, j * 32, i * 32);
 	if (list->map[i][j] == '0')
 		mlx_put_image_to_window(list->mlx, list->wnd,
-			img->tile, j * 100, i * 100);
+			img->tile, j * 32, i * 32);
 	if (list->map[i][j] == 'C')
 		mlx_put_image_to_window(list->mlx, list->wnd,
-			img->obj, j * 100, i * 100);
+			img->obj, j * 32, i * 32);
 	else if (list->map[i][j] == 'E')
 		mlx_put_image_to_window(list->mlx, list->wnd,
-			img->exit, j * 100, i * 100);
+			img->exit, j * 32, i * 32);
 	else if (list->map[i][j] == 'P')
 		mlx_put_image_to_window(list->mlx, list->wnd,
-			img->ply[0], j * 100, i * 100);
+			img->ply[0], j * 32, i * 32);
 	else if (list->map[i][j] == 'X')
 		mlx_put_image_to_window(list->mlx, list->wnd,
-			img->en[0], j * 100, i * 100);
+			img->en[0], j * 32, i * 32);
 }
 
 int	render_all(t_list *list)
