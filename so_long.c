@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/11 15:28:10 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/27 12:21:34 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ int	render_en(t_list *l)
 		while (j >= 0)
 		{
 			mlx_put_image_to_window(l->mlx, l->wnd,
-				l->img->bg, l->en->x[j] * 32, l->en->y[j] * 32);
+				l->img->bg, l->en->x[j] * 50, l->en->y[j] * 50);
 			mlx_put_image_to_window(l->mlx, l->wnd,
-				l->img->tile, l->en->x[j] * 32, l->en->y[j] * 32);
+				l->img->tile, l->en->x[j] * 50, l->en->y[j] * 50);
 			mlx_put_image_to_window(l->mlx, l->wnd,
-				l->img->en[i / MF], l->en->x[j] * 32, l->en->y[j] * 32);
+				l->img->en[i / MF], l->en->x[j] * 50, l->en->y[j] * 50);
 			j--;
 		}
 	}
@@ -102,7 +102,7 @@ int	main(int argc, char **argv)
 	if (list->mlx == NULL)
 		return (write(1, "Error\nMlx init failed", 22), EXIT_FAILURE);
 	list->wnd = mlx_new_window(list->mlx,
-			list->x * 32, list->y * 32, "so_long");
+			list->x * 50, list->y * 50, "so_long");
 	if (list->wnd == NULL)
 		return (write(1, "Error\nMlx new window failed", 28), EXIT_FAILURE);
 	render_all(list);

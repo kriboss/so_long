@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 12:09:03 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/11 16:29:50 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/27 12:22:59 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	put_str(t_list *list, t_img *img)
 		write(1, &str[i++], 1);
 	write(1, "\n", 1);
 	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, 0, 0);
-	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, 32, 0);
+	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, 50, 0);
 	mlx_put_image_to_window(list->mlx, list->wnd, img->bg, 64, 0);
 	mlx_string_put(list->mlx, list->wnd, 10, 10, 0x00FFFFFF, "Moves: ");
 	mlx_string_put(list->mlx, list->wnd, 60, 10, 0x00FFFFFF, str);
@@ -59,12 +59,11 @@ void	check(t_list *list, t_img *img)
 	if (list->map[list->py][list->px] == 'C')
 	{
 		list->c--;
-		printf("c: %d\n", list->c);
 		list->map[list->py][list->px] = '0';
 		mlx_put_image_to_window(list->mlx, list->wnd, img->bg,
-			list->px * 32, list->py * 32);
+			list->px * 50, list->py * 50);
 		mlx_put_image_to_window(list->mlx, list->wnd, img->tile,
-			list->px * 32, list->py * 32);
+			list->px * 50, list->py * 50);
 	}
 	else if (list->map[list->py][list->px] == 'E')
 	{
@@ -85,14 +84,14 @@ int	game(char c, t_list *list, t_img *img)
 	i = list->moves;
 	pl = img->ply[0];
 	mlx_put_image_to_window(list->mlx, list->wnd, img->bg,
-		list->px * 32, list->py * 32);
+		list->px * 50, list->py * 50);
 	mlx_put_image_to_window(list->mlx, list->wnd, img->tile,
-		list->px * 32, list->py * 32);
+		list->px * 50, list->py * 50);
 	pl = move(c, list, img, pl);
 	if (i + 1 == list->moves)
 		put_str(list, img);
 	check(list, img);
 	mlx_put_image_to_window(list->mlx, list->wnd, pl,
-		list->px * 32, list->py * 32);
+		list->px * 50, list->py * 50);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 18:49:17 by kbossio           #+#    #+#              #
-#    Updated: 2025/03/11 14:41:39 by kbossio          ###   ########.fr        #
+#    Updated: 2025/03/27 12:24:37 by kbossio          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ $(NAME): $(OBJS) make_lib make_mlx
 	$(CC) $(OBJS) -Llibft -lft -Lminilibx-linux $(MLX_FLAGS) -o $(NAME)
 
 all: $(NAME)
+
+bonus: all
 
 clean:
 	rm -f $(OBJS)
