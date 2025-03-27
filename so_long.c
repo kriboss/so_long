@@ -92,7 +92,7 @@ int	main(int argc, char **argv)
 		return (write(1, "Error\nMust include map", 23), EXIT_FAILURE);
 	list = init();
 	if (!list)
-		return (write(1, "Error\nList init failed", 32), EXIT_FAILURE);
+		return (write(1, "Error\nList init failed", 23), EXIT_FAILURE);
 	if (parsing(list, argv[1]))
 	{
 		write(1, "Error\n", 6);

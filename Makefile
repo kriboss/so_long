@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = so_long
-CC = gcc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror
 INCLUDES = -Ilibft -I. -Iminilibx-linux
 MLX_FLAGS = -lmlx -lX11 -lXext -lbsd
 SRC = so_long.c so_long_utils.c parsing.c render.c movement.c
@@ -19,10 +19,10 @@ OBJS = $(SRC:.c=.o)
 
 LIB = libft.a
 
-%.o: %.c make_mlx
+%.o: %.c | make_mlx
 	$(CC) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJS) make_lib make_mlx
+$(NAME): $(OBJS) | make_lib make_mlx
 	$(CC) $(OBJS) -Llibft -lft -Lminilibx-linux $(MLX_FLAGS) -o $(NAME)
 
 all: $(NAME)
@@ -48,6 +48,7 @@ make_mlx: minilibx-linux
 	make -C minilibx-linux
 
 minilibx-linux:
-	git clone https://github.com/42Paris/minilibx-linux.git
-
-.PHONY: all clean fclean re make_mlx
+	@if [ ! -d "minilibx-linux" ]; then \
+		git clone https://github.com/42Paris/minilibx-linux.git; \
+	fi
+.PHONY: all bonus clean fclean re make_mlx make_lib minilibx-linux
