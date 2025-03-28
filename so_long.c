@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/27 12:21:34 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/28 10:51:24 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ int	main(int argc, char **argv)
 		return (write(1, "Error\nList init failed", 23), EXIT_FAILURE);
 	if (parsing(list, argv[1]))
 	{
-		write(1, "Error\n", 6);
+		write(1, "Error\nParsing failed", 21);
 		return (free(list->en), free(list->img), free(list), EXIT_FAILURE);
 	}
 	list->mlx = mlx_init();
 	if (list->mlx == NULL)
 		return (write(1, "Error\nMlx init failed", 22), EXIT_FAILURE);
 	list->wnd = mlx_new_window(list->mlx,
-			list->x * 50, list->y * 50, "so_long");
+			(list->x - 1) * 50, list->y * 50, "so_long");
 	if (list->wnd == NULL)
 		return (write(1, "Error\nMlx new window failed", 28), EXIT_FAILURE);
 	render_all(list);

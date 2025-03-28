@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/11 14:57:49 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/28 13:01:46 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,11 @@ int	check_walls(t_list *list)
 int	flood(t_list *list, int y, int x, t_list *tmp)
 {
 	if (list->p > 1 || list->e > 1)
-		return (write(1, "Error\nMap is Wrong", 19), -1);
+		return (-1);
 	if (tmp->map[y][x] == 'X')
 		return (list->en->n++, 0);
 	else if (tmp->map[y][x] == 'C')
-	{
 		list->c++;
-		printf("c: %d\n", list->c);
-	}
 	else if (tmp->map[y][x] == 'E')
 		return (tmp->map[y][x] = '1', list->e++, 0);
 	else if (tmp->map[y][x] == 'P')
@@ -92,8 +89,11 @@ int	flood(t_list *list, int y, int x, t_list *tmp)
 	if (tmp->map[y][x] == '1')
 		return (0);
 	tmp->map[y][x] = '1';
-	if (flood(list, y + 1, x, tmp) || flood(list, y - 1, x, tmp)
-		|| flood(list, y, x + 1, tmp) || flood(list, y, x - 1, tmp))
+	flood(list, y + 1, x, tmp);
+	flood(list, y - 1, x, tmp);
+	flood(list, y, x + 1, tmp);
+	flood(list, y, x - 1, tmp);
+	if (list->p == 1 && list->e == 1 && list->c > 0)
 		return (1);
 	return (0);
 }
@@ -110,13 +110,14 @@ int	create_map(t_list *list, char *map, t_list *tmp)
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
 		return (1);
-	list->map = malloc(sizeof(char *) * 100);
+	list->map = malloc(sizeof(char *) * 21);
 	if (!list->map)
 		return (1);
 	list->map[i] = get_next_line(fd);
-	while (list->map[i])
+	while (i < 20 && list->map[i])
 		list->map[++i] = get_next_line(fd);
-	if (check_walls(list) == 1 || i < 2)
+	free_line(list, fd, i);
+	if (i < 2 || (i >= 20 && list->map[i]) || check_walls(list) == 1)
 		return (free_map(list->map), 1);
 	tmp->map = mapdup(list->map);
 	if (!tmp->map)
@@ -138,7 +139,8 @@ int	parsing(t_list *list, char *map)
 		j = 0;
 		while (list->map[i][j] != '\0' && list->map[i][j] != '\n')
 		{
-			check_map(list, &tmp, i, j);
+			if (check_map(list, &tmp, i, j) == 1)
+				return (1);
 			j++;
 		}
 		i++;

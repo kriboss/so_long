@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/07 12:42:01 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/28 13:01:31 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ int		render_all(t_list *list);
 void	render(t_list *list);
 
 int		game(char c, t_list *list, t_img *img);
+
+void	free_line(t_list *list, int fd, int i);
 
 #endif
