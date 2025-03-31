@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:31:44 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/28 10:51:24 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/31 12:49:24 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	render_en(t_list *l)
 
 	i = ++l->img->frame;
 	j = l->en->n - 1;
-	if (i == 100000 || i == 200000)
+	if (i == 0 || i == 100000)
 	{
 		while (j >= 0)
 		{
@@ -55,8 +55,8 @@ int	render_en(t_list *l)
 			j--;
 		}
 	}
-	if (l->img->frame == MF)
-		l->img->frame = 0;
+	if (l->img->frame >= 200000)
+		l->img->frame = -1;
 	return (0);
 }
 

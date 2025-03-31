@@ -6,7 +6,7 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 23:32:24 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/28 13:01:46 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/31 12:31:50 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	check_walls(t_list *list)
 		{
 			if ((i == 0 || list->map[i + 1] == NULL) && list->map[i][j] != '1')
 				return (1);
-			if ((j == 0 || j == ft_strlen(list->map[i]) - 1)
-				&& list->map[i][j] != '1')
+			if ((j == 0 || list->map[i][j + 1] == '\0'
+				|| list->map[i][j + 1] == '\n') && list->map[i][j] != '1')
 				return (1);
 			j++;
 		}
@@ -110,18 +110,20 @@ int	create_map(t_list *list, char *map, t_list *tmp)
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
 		return (1);
+	if (check_name(map) == 1)
+		return (close(fd), 1);
 	list->map = malloc(sizeof(char *) * 21);
 	if (!list->map)
-		return (1);
+		return (close(fd), 1);
 	list->map[i] = get_next_line(fd);
 	while (i < 20 && list->map[i])
 		list->map[++i] = get_next_line(fd);
 	free_line(list, fd, i);
 	if (i < 2 || (i >= 20 && list->map[i]) || check_walls(list) == 1)
-		return (free_map(list->map), 1);
+		return (close(fd), free_map(list->map), 1);
 	tmp->map = mapdup(list->map);
 	if (!tmp->map)
-		return (free_map(list->map), 1);
+		return (close(fd), free_map(list->map), 1);
 	return (close(fd), 0);
 }
 
@@ -145,7 +147,9 @@ int	parsing(t_list *list, char *map)
 		}
 		i++;
 	}
-	if (tmp.p != 1 || en_cord(list, i) == 1)
+	if (tmp.p != 1 || tmp.e != 1 || flood(list, tmp.py, tmp.px, &tmp) == -1
+		|| list->p != 1 || list->e != 1 || list->c < 1 || list->c != tmp.c
+		|| en_cord(list, i) == 1)
 		return (free_map(tmp.map), free_map(list->map), 1);
 	return (free_map(tmp.map), 0);
 }

@@ -6,11 +6,24 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:18:29 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/27 12:23:47 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/31 12:20:15 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	check_name(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	if (i < 5 || map[i - 4] != '.' || map[i - 3] != 'b'
+		|| map[i - 2] != 'e' || map[i - 1] != 'r')
+		return (1);
+	return (0);
+}
 
 int	get_img(void *mlx, t_img *img)
 {

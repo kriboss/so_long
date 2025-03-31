@@ -6,13 +6,13 @@
 /*   By: kbossio <kbossio@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 20:51:07 by kbossio           #+#    #+#             */
-/*   Updated: 2025/03/28 13:01:31 by kbossio          ###   ########.fr       */
+/*   Updated: 2025/03/31 12:47:29 by kbossio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# define MF 200000
+# define MF 100000
 
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
@@ -66,6 +66,7 @@ int		flood(t_list *list, int y, int x, t_list *tmp);
 void	free_map(char **map);
 int		render_all(t_list *list);
 void	render(t_list *list);
+int		check_name(char *map);
 
 int		game(char c, t_list *list, t_img *img);
 
